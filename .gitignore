@@ -71,3 +71,20 @@ __pycache__/
 # Sensitive files
 *.pem
 
+# Replit specific
+.pythonlibs/
+.upm/
+uv.lock
+
+# Python UV package manager
+.venv/
+__pypackages__/
+
+# Exports and uploads
+exports/
+uploads/
+
+# SQLite databases
+*.db
+plans.db
+test.db

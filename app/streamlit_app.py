@@ -201,15 +201,53 @@ Determinará, também, a abrangência do assunto, pois, quanto menos tempo dispu
 elif current == "Aspectos Essenciais":
     st.subheader("f) Identificação dos Aspectos Essenciais do Assunto")
     save_list("Aspectos Essenciais", "aspects_essential")
+    
+    with st.expander("📖 Guia: Identificação dos Aspectos Essenciais", expanded=False):
+        st.markdown("""
+**f) identificação dos aspectos essenciais do assunto**
+
+Realiza-se um levantamento dos aspectos essenciais que deverão ser abordados, para que o assunto possa ser esclarecido. Compõem um arcabouço preliminar do conhecimento em produção, coerente com as considerações a respeito do usuário e da finalidade anteriormente abordadas.
+
+O levantamento dos aspectos essenciais deve ser flexível, de tal modo que possa ser, eventualmente, redimensionado, de acordo com mudanças imprevistas na configuração do assunto e/ou do fato ou da situação ao longo do trabalho de produção do conhecimento.
+
+Trata-se de listar o que o analista, nesta etapa do estudo, necessita saber para extrair conclusões sobre o assunto estudado. Tal lista poderá ser ampliada ou sofrer supressões em decorrência da evolução do estudo (Pivotagem).
+        """)
 
 elif current == "Aspectos Conhecidos":
     st.subheader("g) Identificação dos Aspectos Essenciais Conhecidos")
     save_list("Aspectos Conhecidos", "aspects_known")
+    
+    with st.expander("📖 Guia: Identificação dos Aspectos Essenciais Conhecidos", expanded=False):
+        st.markdown("""
+**g) identificação dos aspectos essenciais conhecidos;**
+
+Este procedimento consiste em verificar, dentre os aspectos essenciais já determinados, aqueles para os quais já se tenha algum tipo de resposta, antes do desencadeamento de qualquer medida de reunião.
+
+Sendo o planejamento de uso estritamente pessoal do analista, o seu equacionamento é livre. Em razão disso, especificamente quanto à verificação dos aspectos essenciais conhecidos, poderá variar desde a simples indicação dos aspectos já conhecidos até o relacionamento de todas as respostas que a eles se vinculem.
+
+É indispensável que, dos aspectos essenciais conhecidos, sejam separadas as respostas completas das incompletas e as que expressam certeza daquelas que apresentam algum grau de incerteza.
+
+A execução desse procedimento é fundamental para a verificação dos aspectos essenciais a conhecer (próxima subfase).
+        """)
 
 elif current == "Aspectos a Conhecer":
     st.subheader("h) Identificação dos Aspectos Essenciais a Conhecer")
     st.caption("Dica: derive daqui os requisitos de coleta/PIR.")
     save_list("Aspectos a Conhecer", "aspects_to_know")
+    
+    with st.expander("📖 Guia: Identificação dos Aspectos Essenciais a Conhecer", expanded=False):
+        st.markdown("""
+**h) identificação dos aspectos essenciais a conhecer;**
+
+Esta tarefa consiste, basicamente, na verificação dos aspectos essenciais para os quais o analista:
+- não tenha, em seu acervo, qualquer resposta;
+- necessite de novos elementos de convicção para as respostas já à sua disposição; e
+- necessite completar as respostas já disponíveis.
+
+Este procedimento será materializado em uma listagem do que obter para atender aos casos acima, como forma de preparar, com objetividade, a fase da reunião.
+
+Na prática, o procedimento proposto é o resultado do levantamento dos Aspectos Essenciais (necessários ao assunto) menos os Aspectos Essenciais Conhecidos (excluídos os incompletos e os que não expressam certeza). O produto são as **NECESSIDADES DE CONHECER**.
+        """)
 
 elif current == "PIRs & Coleta":
     st.subheader("PIRs (Requisitos de Inteligência) vinculados aos Aspectos a Conhecer")
@@ -250,6 +288,15 @@ elif current == "PIRs & Coleta":
 elif current == "Medidas Extraordinárias":
     st.subheader("i) Previsão de Medidas Extraordinárias")
     save_list("Medidas Extraordinárias", "extraordinary")
+    
+    with st.expander("📖 Guia: Previsão de Medidas Extraordinárias", expanded=False):
+        st.markdown("""
+**i) previsão de medidas extraordinárias**
+
+Este procedimento se traduz na previsão de medidas que extrapolem os recursos normais da estrutura de Inteligência e que se mostrem indispensáveis à produção do conhecimento (pesquisas de opinião, contratação de especialistas, acesso a base de dados, etc.).
+
+Medidas desse tipo, normalmente, são previstas somente nos níveis mais elevados da estrutura de Inteligência, particularmente no nível estratégico.
+        """)
 
 elif current == "Medidas de Segurança":
     st.subheader("j) Adoção de Medidas de Segurança")

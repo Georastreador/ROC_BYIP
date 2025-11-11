@@ -87,6 +87,44 @@ if current == "Assunto":
         plan["subject"]["who"] = st.text_input("Quem", plan["subject"]["who"])
     with c3:
         plan["subject"]["where"] = st.text_input("Onde", plan["subject"]["where"])
+    
+    st.markdown("---")
+    with st.expander("📖 Guia: Processo de Produção de Conhecimento", expanded=False):
+        st.markdown("""
+O processo de produção de conhecimento (Inteligência) inicia-se com o acionamento por parte do **DECISOR** ou **DEMANDANTE** (no caso de empresas ou organizações).
+
+**Sequência:**
+
+**DEMANDA** → acionamento  
+**ABORDAGEM** → coleta dos dados/informações iniciais (contexto, problema, envolvidos, sistemas, prazos, espaço temporal e ligações)  
+**EXECUÇÃO** → NECESSIDADE DE CONHECIMENTOS ⇒ PLANO DE OBTENÇÃO ⇒ EXECUÇÃO DO CICLO DE INTELIGÊNCIA ⇒ PRODUÇÃO DE CONHECIMENTOS ⇒ ENTREGA DOS CONHECIMENTOS
+
+**Processamento:**
+
+### 1ª FASE - PLANEJAMENTO (Identificar e listar a Necessidade de Conhecimentos)
+
+Planejar é conceber a solução para um problema. É combinar arte e ciência para obter a mais precisa compreensão sobre ele, vislumbrando o estado final ou os objetivos que se desejam alcançar quando o problema for resolvido, e estabelecendo formas eficazes para que isso aconteça.
+
+**O bom planejamento facilita:**
+- Compreender e desenvolver soluções para os problemas.
+- Antecipar eventos e adaptar-se às mudanças de circunstâncias.
+- Organizar os meios a sua disposição e priorizar esforços
+
+Dada a natureza incerta e dinâmica das sociedades, o objeto do planejamento não é eliminar a incerteza, mas desenvolver um quadro de ação no meio de tanta incerteza.
+
+Simplificando, o planejar é **pensar de forma crítica e criativa** sobre o que fazer e como fazê-lo para solução de problema(s), enquanto antecipa mudanças ao longo do caminho.
+
+A **1ª Fase - Planejamento de Inteligência**, é a fase na qual o analista de Inteligência, encarregado de produzir um conhecimento, realiza o estudo preliminar e geral do problema e estabelece os procedimentos necessários para cumprir a missão.
+
+**Durante a fase do planejamento, o analista adota os seguintes procedimentos:**
+
+**a) determinação do assunto a ser abordado:**
+   
+O assunto é, normalmente, definido por meio de uma expressão oral ou escrita, respondendo às seguintes perguntas:
+- **O quê?**
+- **Quem?**
+- **Onde?**
+        """)
 
 elif current == "Faixa de Tempo":
     st.subheader("b) Determinar a Faixa de Tempo")

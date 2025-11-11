@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Depends, HTTPException, UploadFile, File, Form, Request
+from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session
 from .db.database import SessionLocal, engine, Base
 from .models.models import Plan, Evidence
@@ -117,7 +118,7 @@ def export_pdf(plan_id: int, db: Session = Depends(get_db)):
     outfile = f"exports/plan_{plan.id}.pdf"
     generate_plan_pdf(data, outfile)
     audit_log(db, action="export_pdf", detail=outfile, plan_id=plan.id)
-    return {"file": outfile}
+    return FileResponse(outfile, media_type="application/pdf", filename=f"plan_{plan.id}.pdf")
 
 @app.get("/export/html/{plan_id}")
 def export_html(plan_id: int, db: Session = Depends(get_db)):
@@ -204,7 +205,7 @@ h1{{font-size:20px;margin:0;}}
     with open(outfile, "w", encoding="utf-8") as f:
         f.write(html)
     audit_log(db, action="export_html", detail=outfile, plan_id=plan.id)
-    return {"file": outfile}
+    return FileResponse(outfile, media_type="text/html", filename=f"plan_{plan.id}.html")
 
 @app.post("/evidence/upload", response_model=EvidenceRead)
 async def upload_evidence(plan_id: int = Form(...), file: UploadFile = File(...), db: Session = Depends(get_db)):

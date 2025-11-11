@@ -36,6 +36,23 @@ steps = [
 with st.sidebar:
     st.header("Etapas")
     current = st.radio("Navegação", steps, index=0)
+    
+    st.markdown("---")
+    st.subheader("🔍 Faixa de Tempo (Pesquisa)")
+    
+    # Initialize research_notes if not exists
+    if "plan" in st.session_state and "time_window" in st.session_state.plan:
+        if "research_notes" not in st.session_state.plan["time_window"]:
+            st.session_state.plan["time_window"]["research_notes"] = ""
+    
+    # Sidebar notes input
+    research_notes = st.text_area(
+        "Notas sobre a Pesquisa",
+        value=st.session_state.plan["time_window"].get("research_notes", ""),
+        height=120,
+        placeholder="Contexto, eventos relevantes, restrições de tempo..."
+    )
+    st.session_state.plan["time_window"]["research_notes"] = research_notes
 
 plan = st.session_state.plan
 
@@ -80,7 +97,8 @@ elif current == "Faixa de Tempo":
     with c2:
         end = st.date_input("Fim", value=date.today())
         plan["time_window"]["end"] = end.isoformat()
-    st.info("Defina o período de análise de acordo com as necessidades do usuário.")
+    
+    st.info("📅 Defina o período de análise de acordo com as necessidades do usuário.\n\n💡 **Dica:** Adicione notas de pesquisa e contexto no campo **Faixa de Tempo (Pesquisa)** no sidebar.")
 
 elif current == "Usuário":
     st.subheader("c) Determinar o Usuário do Conhecimento")
@@ -214,65 +232,134 @@ elif current == "Preview":
         st.info("Sem tarefas de coleta para montar o Gantt.")
 
 else:
-    st.subheader("Revisão & Export")
-    st.json(plan)
-    col1, col2, col3, col4 = st.columns(4)
-    with col1:
-        if st.button("Salvar Plano (API)"):
-            with httpx.Client(timeout=10) as client:
-                r = client.post(f"{API_URL}/plans", json=plan)
-                if r.status_code == 200:
-                    st.success(f"Plano salvo: id {r.json()['id']}")
-                    st.session_state.saved_plan = r.json()
+    st.subheader("📋 Revisão & Export")
+    
+    # Criar abas para melhor organização
+    tab1, tab2, tab3, tab4 = st.tabs(["📄 Visualizar", "💾 Salvar & Validar", "📊 Exportar", "📎 Evidências"])
+    
+    with tab1:
+        st.markdown("### Conteúdo do Plano")
+        st.json(plan)
+    
+    with tab2:
+        st.markdown("### Gerenciamento do Plano")
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            st.markdown("#### 💾 Salvar Plano")
+            if st.button("🔒 Salvar Plano (API)", key="save_plan", use_container_width=True):
+                with st.spinner("Salvando plano..."):
+                    with httpx.Client(timeout=10) as client:
+                        r = client.post(f"{API_URL}/plans", json=plan)
+                        if r.status_code == 200:
+                            st.session_state.saved_plan = r.json()
+                            st.success(f"✅ Plano salvo com sucesso! ID: **{r.json()['id']}**")
+                        else:
+                            st.error(f"❌ Erro ao salvar: {r.text}")
+            
+            # Mostrar status do plano salvo
+            saved = st.session_state.get("saved_plan")
+            if saved:
+                st.info(f"📌 Plano atual: ID **{saved['id']}**")
+        
+        with col2:
+            st.markdown("#### ✅ Validação LGPD")
+            if st.button("🛡️ Checar Conformidade LGPD", key="check_lgpd", use_container_width=True):
+                saved = st.session_state.get("saved_plan")
+                if not saved:
+                    st.warning("⚠️ Salve o plano primeiro para validar LGPD.")
                 else:
-                    st.error(f"Erro ao salvar: {r.text}")
-    with col2:
-        if st.button("Checar LGPD (API)"):
-            saved = st.session_state.get("saved_plan")
-            if not saved:
-                st.warning("Salve o plano primeiro.")
-            else:
-                with httpx.Client(timeout=10) as client:
-                    r = client.post(f"{API_URL}/plans/{saved['id']}/lgpd_check")
-                    st.write(r.json())
-    with col3:
-        if st.button("Exportar PDF (API)"):
-            saved = st.session_state.get("saved_plan")
-            if not saved:
-                st.warning("Salve o plano primeiro.")
-            else:
-                with httpx.Client(timeout=10) as client:
-                    r = client.get(f"{API_URL}/export/pdf/{saved['id']}")
-                    if r.status_code == 200:
-                        st.success(f"PDF gerado: {r.json()['file']} (no servidor)")
-                    else:
-                        st.error(f"Erro ao exportar: {r.text}")
-    with col4:
-        if st.button("Exportar HTML (API)"):
-            saved = st.session_state.get("saved_plan")
-            if not saved:
-                st.warning("Salve o plano primeiro.")
-            else:
-                with httpx.Client(timeout=10) as client:
-                    r = client.get(f"{API_URL}/export/html/{saved['id']}")
-                    if r.status_code == 200:
-                        st.success(f"HTML gerado: {r.json()['file']} (no servidor)")
-                    else:
-                        st.error(f"Erro ao exportar HTML: {r.text}")
-
-    st.markdown("---")
-    st.subheader("Evidências (upload → hash)")
-    saved = st.session_state.get("saved_plan")
-    if not saved:
-        st.info("Salve o plano para habilitar o upload de evidências.")
-    else:
-        up = st.file_uploader("Arquivo de evidência")
-        if up is not None:
-            with httpx.Client(timeout=60) as client:
-                files = {"file": (up.name, up.getvalue())}
-                data = {"plan_id": str(saved["id"])}
-                r = client.post(f"{API_URL}/evidence/upload", files=files, data=data)
-                if r.status_code == 200:
-                    st.success(f"Evidência anexada: {r.json()['filename']} (sha256: {r.json()['sha256'][:12]}...)")
+                    with st.spinner("Validando conformidade LGPD..."):
+                        with httpx.Client(timeout=10) as client:
+                            r = client.post(f"{API_URL}/plans/{saved['id']}/lgpd_check")
+                            result = r.json()
+                            
+                            # Mostrar resultado com cores
+                            if result.get("compliant"):
+                                st.success("✅ Plano está em conformidade com LGPD!")
+                            else:
+                                st.error("❌ Plano NÃO está em conformidade com LGPD!")
+                            
+                            # Expandir detalhes
+                            with st.expander("📋 Detalhes da Validação"):
+                                st.json(result)
+    
+    with tab3:
+        st.markdown("### Exportar Relatório")
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            st.markdown("#### 📄 Exportar PDF")
+            if st.button("📥 Gerar PDF", key="export_pdf_btn", use_container_width=True):
+                saved = st.session_state.get("saved_plan")
+                if not saved:
+                    st.warning("⚠️ Salve o plano primeiro para exportar PDF.")
                 else:
-                    st.error(f"Erro no upload: {r.text}")
+                    with st.spinner("Gerando PDF..."):
+                        with httpx.Client(timeout=10) as client:
+                            r = client.get(f"{API_URL}/export/pdf/{saved['id']}")
+                            if r.status_code == 200:
+                                st.session_state.pdf_content = r.content
+                                st.session_state.pdf_filename = f"plan_{saved['id']}.pdf"
+                                st.success("✅ PDF gerado com sucesso!")
+                            else:
+                                st.error(f"❌ Erro ao exportar: {r.text}")
+            
+            # Botão de download se PDF foi gerado
+            if "pdf_content" in st.session_state:
+                st.download_button(
+                    label="⬇️ Baixar PDF",
+                    data=st.session_state.pdf_content,
+                    file_name=st.session_state.pdf_filename,
+                    mime="application/pdf",
+                    use_container_width=True
+                )
+        
+        with col2:
+            st.markdown("#### 🌐 Exportar HTML")
+            if st.button("📥 Gerar HTML", key="export_html_btn", use_container_width=True):
+                saved = st.session_state.get("saved_plan")
+                if not saved:
+                    st.warning("⚠️ Salve o plano primeiro para exportar HTML.")
+                else:
+                    with st.spinner("Gerando HTML..."):
+                        with httpx.Client(timeout=10) as client:
+                            r = client.get(f"{API_URL}/export/html/{saved['id']}")
+                            if r.status_code == 200:
+                                st.session_state.html_content = r.content
+                                st.session_state.html_filename = f"plan_{saved['id']}.html"
+                                st.success("✅ HTML gerado com sucesso!")
+                            else:
+                                st.error(f"❌ Erro ao exportar: {r.text}")
+            
+            # Botão de download se HTML foi gerado
+            if "html_content" in st.session_state:
+                st.download_button(
+                    label="⬇️ Baixar HTML",
+                    data=st.session_state.html_content,
+                    file_name=st.session_state.html_filename,
+                    mime="text/html",
+                    use_container_width=True
+                )
+    
+    with tab4:
+        st.markdown("### Gerenciar Evidências")
+        saved = st.session_state.get("saved_plan")
+        if not saved:
+            st.info("💡 Salve o plano para habilitar o upload de evidências.")
+        else:
+            st.markdown("#### 📎 Upload de Arquivo")
+            up = st.file_uploader("Selecione um arquivo de evidência", key=f"uploader_{saved['id']}")
+            if up is not None:
+                if st.button("⬆️ Enviar Evidência", key=f"upload_btn_{saved['id']}", use_container_width=True):
+                    with st.spinner("Calculando hash e enviando..."):
+                        with httpx.Client(timeout=60) as client:
+                            files = {"file": (up.name, up.getvalue())}
+                            data = {"plan_id": str(saved["id"])}
+                            r = client.post(f"{API_URL}/evidence/upload", files=files, data=data)
+                            if r.status_code == 200:
+                                result = r.json()
+                                st.success(f"✅ Evidência anexada com sucesso!")
+                                st.info(f"📄 **{result['filename']}** → SHA-256: `{result['sha256']}`")
+                            else:
+                                st.error(f"❌ Erro no upload: {r.text}")

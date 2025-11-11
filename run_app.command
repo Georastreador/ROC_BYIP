@@ -80,6 +80,16 @@ echo -e "${GREEN}✅ Preparação concluída!${NC}"
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo ""
 
+# Liberar porta 8000 se estiver em uso
+echo -e "${YELLOW}🔧 Verificando porta 8000...${NC}"
+if lsof -i :8000 > /dev/null 2>&1; then
+    echo -e "${YELLOW}   Porta 8000 em uso, encerrando processo anterior...${NC}"
+    lsof -ti :8000 | xargs kill -9 2>/dev/null || true
+    sleep 2
+fi
+echo -e "${GREEN}✅ Porta 8000 liberada${NC}"
+echo ""
+
 # Iniciar Backend
 echo -e "${YELLOW}🚀 Iniciando Backend (FastAPI)...${NC}"
 cd backend
@@ -94,6 +104,7 @@ sleep 5
 # Verificar se backend iniciou corretamente
 if ! kill -0 $BACKEND_PID 2>/dev/null; then
     echo -e "${RED}❌ Erro ao iniciar backend!${NC}"
+    echo -e "${RED}   Verifique se a porta 8000 está disponível.${NC}"
     exit 1
 fi
 

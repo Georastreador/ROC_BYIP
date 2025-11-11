@@ -77,6 +77,16 @@ echo ✅ Preparação concluída!
 echo ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 echo.
 
+REM Verificar e liberar porta 8000
+echo 🔧 Verificando porta 8000...
+for /f "tokens=5" %%a in ('netstat -aon ^| find ":8000" ^| find "LISTENING"') do (
+    echo    Porta 8000 em uso, encerrando processo...
+    taskkill /PID %%a /F >nul 2>&1
+)
+timeout /t 2 /nobreak >nul
+echo ✅ Porta 8000 liberada
+echo.
+
 REM Iniciar Backend em background
 echo 🚀 Iniciando Backend (FastAPI)...
 cd backend

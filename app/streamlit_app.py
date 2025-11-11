@@ -151,6 +151,17 @@ elif current == "Usuário":
     plan["user"]["others"] = st.text_input("Outros Usuários (opcional)", plan["user"]["others"])
     plan["user"]["depth"] = st.selectbox("Nível de Profundidade", ["executivo","gerencial","tecnico"], index=0)
     plan["user"]["secrecy"] = st.selectbox("Nível de Sigilo", ["publico","restrito","confidencial","secreto"], index=0)
+    
+    with st.expander("📖 Guia: Determinação do Usuário do Conhecimento", expanded=False):
+        st.markdown("""
+**c) determinação do usuário do conhecimento;**
+
+Esse procedimento visa a ajustar o conhecimento que está sendo produzido ao nível do usuário e a auxiliar a definição de prioridades.
+
+O analista deverá definir a autoridade a que se destina o produto e, no caso de haver mais de um usuário, a prioridade de atendimento. Exemplo: CEO e divisão jurídica.
+
+A determinação do usuário visa, principalmente, a estabelecer o nível de profundidade do conhecimento a ser produzido, medidas de sigilo e utilização de meios auxiliares para explicação (fotos, gráficos, outros idiomas, etc).
+        """)
 
 elif current == "Finalidade":
     st.subheader("d) Determinar a Finalidade do Conhecimento")

@@ -166,6 +166,15 @@ A determinação do usuário visa, principalmente, a estabelecer o nível de pro
 elif current == "Finalidade":
     st.subheader("d) Determinar a Finalidade do Conhecimento")
     plan["purpose"] = st.text_area("Finalidade", plan["purpose"], height=150)
+    
+    with st.expander("📖 Guia: Determinação da Finalidade do Conhecimento", expanded=False):
+        st.markdown("""
+**d) determinação da finalidade do conhecimento;**
+
+Este tópico diz respeito à utilização, pelo usuário, do conhecimento em produção (Muito Importante). Nem sempre é possível a determinação dessa finalidade (o cliente sabe o que quer, mas não sabe transmitir). Nesse caso, o planejamento é orientado para esgotar o assunto tratado, de tal modo que o usuário venha a encontrar subsídios úteis à sua atuação.
+
+O correto entendimento do processo decisório e, consequentemente, das atribuições próprias de cada uma das autoridades, facilita a determinação da finalidade do conhecimento.
+        """)
 
 elif current == "Prazo":
     st.subheader("e) Determinar o Prazo Disponível")
@@ -174,6 +183,20 @@ elif current == "Prazo":
         plan["deadline"]["date"] = st.date_input("Data Limite", value=date.today()).isoformat()
     with c2:
         plan["deadline"]["urgency"] = st.selectbox("Urgência", ["baixa","media","alta","critica"], index=1)
+    
+    with st.expander("📖 Guia: Determinação do Prazo Disponível", expanded=False):
+        st.markdown("""
+**e) determinação do prazo disponível para a produção do conhecimento;**
+
+Quando esses prazos não estão previamente determinados, são eles estabelecidos com base:
+- no correto entendimento do problema e da dinâmica de coleta de dados e informações nesse processo;
+- na importância do trabalho em execução e do seu usuário; e
+- na complexidade do trabalho que está sendo desenvolvido.
+
+A correta determinação do prazo constitui um fator preponderante para que o conhecimento em produção seja utilizado em tempo hábil, atendendo ao princípio da oportunidade.
+
+Determinará, também, a abrangência do assunto, pois, quanto menos tempo dispuser o analista para finalizar o seu estudo, menor quantidade de dados e conhecimentos poderá reunir.
+        """)
 
 elif current == "Aspectos Essenciais":
     st.subheader("f) Identificação dos Aspectos Essenciais do Assunto")

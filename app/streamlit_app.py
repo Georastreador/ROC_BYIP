@@ -301,6 +301,17 @@ Medidas desse tipo, normalmente, são previstas somente nos níveis mais elevado
 elif current == "Medidas de Segurança":
     st.subheader("j) Adoção de Medidas de Segurança")
     save_list("Medidas de Segurança", "security")
+    
+    with st.expander("📖 Guia: Adoção de Medidas de Segurança", expanded=False):
+        st.markdown("""
+**j) adoção de medidas de segurança, se for o caso.**
+
+Já no planejamento, o analista identifica e estabelece as medidas necessárias à proteção das ações que estão sendo desenvolvidas (os próprios procedimentos do planejamento já configuram ações de produção) e do resultado que, gradualmente, vem sendo obtido. Para isso, adota medidas cautelares (com base, principalmente, na natureza do assunto tratado), que se estendem por toda a produção do conhecimento.
+
+Este é um procedimento considerado muito relevante, já que é da própria essência da atividade de Inteligência a vinculação entre a produção e a proteção do conhecimento.
+
+Há de se considerar que a adoção de medidas de segurança poderá ser um fator de limitação das ações desenvolvidas nas demais fases da metodologia.
+        """)
 
 elif current == "Preview":
     st.subheader("Pré-visualização do Plano")

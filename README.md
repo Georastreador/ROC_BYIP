@@ -33,6 +33,40 @@ Arquitetura: **Streamlit** (frontend) + **FastAPI** (backend) + **SQLite** (banc
 - Python 3.10+
 - pip ou conda
 
+### ⚡ Execução Rápida (One-Click para Usuários)
+
+Se você é um **usuário não-técnico** e quer rodar a aplicação rapidamente:
+
+#### macOS
+```bash
+# Duplo clique em:
+./run_app.command
+
+# Ou execute via terminal:
+bash run_app.command
+```
+
+#### Windows
+```bash
+# Duplo clique em:
+run_app.bat
+
+# Ou execute via cmd:
+run_app.bat
+```
+
+✅ Isso iniciará automaticamente:
+- Backend (FastAPI) na porta 8000
+- Frontend (Streamlit) na porta 8501 (ou 8502 se 8501 estiver ocupada)
+- Verificará dependências e criará ambiente virtual, se necessário
+- Limpará portas ocupadas automaticamente
+
+Acesse: **http://localhost:8501** (ou a porta exibida)
+
+**Nota:** Scripts disponíveis apenas após clonar o repositório. Para mais detalhes, veja `GETTING_STARTED_FOR_USERS.md`.
+
+---
+
 ### 1. Clonar e Preparar Ambiente
 
 ```bash
@@ -190,17 +224,30 @@ streamlit run app/streamlit_app.py
 - **Etapa 13 (Preview):** KPIs, Gantt e opções de export
 
 ### 3. Salvar Plano
-Clique em **"Salvar Plano (API)"** → plano é persistido no banco
+Clique em **"Salvar Plano (API)"** → plano é persistido no banco e ID é exibido
 
 ### 4. Validar LGPD
-Clique em **"Checar LGPD (API)"** → retorna conformidade
+Clique em **"Checar LGPD (API)"** → validação de conformidade é exibida em painel expansível
 
 ### 5. Exportar Relatório
-- **PDF:** Clique em **"Exportar PDF (API)"** → arquivo salvo em `backend/exports/plan_*.pdf`
-- **HTML:** Clique em **"Exportar HTML (API)"** → arquivo salvo em `backend/exports/plan_*.html`
+Interface com abas para maior clareza:
+
+#### Aba: Exportar
+- **PDF:** 
+  1. Clique em **"📥 Gerar PDF"** → arquivo é gerado no servidor
+  2. Clique em **"⬇️ Baixar PDF"** → arquivo é baixado no seu computador
+  
+- **HTML:**
+  1. Clique em **"📥 Gerar HTML"** → arquivo é gerado no servidor
+  2. Clique em **"⬇️ Baixar HTML"** → arquivo é baixado no seu computador
+
+✅ **Novo:** Downloads diretos no navegador (sem salvar no servidor)
 
 ### 6. Anexar Evidências
-Após salvar, faça upload de arquivos → SHA-256 calculado automaticamente
+#### Aba: Evidências
+- Após salvar o plano, faça upload de arquivos
+- SHA-256 é calculado automaticamente
+- Arquivo é vinculado ao plano
 
 ## 🔐 Segurança
 

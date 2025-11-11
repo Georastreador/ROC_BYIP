@@ -137,6 +137,13 @@ elif current == "Faixa de Tempo":
         plan["time_window"]["end"] = end.isoformat()
     
     st.info("📅 Defina o período de análise de acordo com as necessidades do usuário.\n\n💡 **Dica:** Adicione notas de pesquisa e contexto no campo **Faixa de Tempo (Pesquisa)** no sidebar.")
+    
+    with st.expander("📖 Guia: Determinação da Faixa de Tempo", expanded=False):
+        st.markdown("""
+**b) determinação da faixa de tempo em que o assunto deve ser considerado;**
+
+Este procedimento consiste em estabelecer a amplitude do tempo para o estudo considerado. A determinação da faixa de tempo é feita levando-se em conta, sobretudo, as necessidades do usuário do conhecimento em produção.
+        """)
 
 elif current == "Usuário":
     st.subheader("c) Determinar o Usuário do Conhecimento")

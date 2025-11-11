@@ -160,11 +160,31 @@ h1{{font-size:20px;margin:0;}}
 
 <div class="section">
   <div class="card"><b>Título:</b> {data.get('title','')}</div>
-  <div class="card"><b>Assunto:</b> <span class="mono">{json.dumps(data.get('subject',{}), ensure_ascii=False)}</span></div>
-  <div class="card"><b>Faixa de Tempo:</b> <span class="mono">{json.dumps(data.get('time_window',{}), ensure_ascii=False)}</span></div>
-  <div class="card"><b>Usuário:</b> <span class="mono">{json.dumps(data.get('user',{}), ensure_ascii=False)}</span></div>
+  <div class="card">
+    <b>Assunto:</b><br/>
+    O quê: <strong>{data.get('subject',{}).get('what','')}</strong><br/>
+    Quem: <strong>{data.get('subject',{}).get('who','')}</strong><br/>
+    Onde: <strong>{data.get('subject',{}).get('where','')}</strong>
+  </div>
+  <div class="card">
+    <b>Faixa de Tempo (Pesquisa):</b><br/>
+    Início: <strong>{data.get('time_window',{}).get('start','')}</strong><br/>
+    Fim: <strong>{data.get('time_window',{}).get('end','')}</strong><br/>
+    Notas: {data.get('time_window',{}).get('research_notes','') or '<em>(nenhuma anotação)</em>'}
+  </div>
+  <div class="card">
+    <b>Usuário:</b><br/>
+    Principal: <strong>{data.get('user',{}).get('principal','')}</strong><br/>
+    Outros: {data.get('user',{}).get('others','') or '<em>(nenhum)</em>'}<br/>
+    Profundidade: <strong>{data.get('user',{}).get('depth','')}</strong><br/>
+    Sigilo: <strong>{data.get('user',{}).get('secrecy','')}</strong>
+  </div>
   <div class="card"><b>Finalidade:</b> {data.get('purpose','')}</div>
-  <div class="card"><b>Prazo:</b> <span class="mono">{json.dumps(data.get('deadline',{}), ensure_ascii=False)}</span></div>
+  <div class="card">
+    <b>Prazo:</b><br/>
+    Data Limite: <strong>{data.get('deadline',{}).get('date','')}</strong><br/>
+    Urgência: <strong>{data.get('deadline',{}).get('urgency','')}</strong>
+  </div>
 </div>
 
 <div class="section">

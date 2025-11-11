@@ -61,11 +61,28 @@ def generate_plan_pdf(plan: dict, outfile: str):
 
     y = h - 80
     y = _kv_block(c, x, y, "Título", plan.get("title",""), w, h)
-    y = _kv_block(c, x, y, "Assunto", json.dumps(plan.get("subject", {}), ensure_ascii=False, indent=2), w, h)
-    y = _kv_block(c, x, y, "Faixa de Tempo", json.dumps(plan.get("time_window", {}), ensure_ascii=False, indent=2), w, h)
-    y = _kv_block(c, x, y, "Usuário", json.dumps(plan.get("user", {}), ensure_ascii=False, indent=2), w, h)
+    
+    # Format Assunto nicely
+    subject = plan.get("subject", {})
+    subject_text = f"O quê: {subject.get('what','')}\nQuem: {subject.get('who','')}\nOnde: {subject.get('where','')}"
+    y = _kv_block(c, x, y, "Assunto", subject_text, w, h)
+    
+    # Format Faixa de Tempo nicely
+    time_window = plan.get("time_window", {})
+    time_text = f"Início: {time_window.get('start','')}\nFim: {time_window.get('end','')}\nNotas: {time_window.get('research_notes','') or '(nenhuma anotação)'}"
+    y = _kv_block(c, x, y, "Faixa de Tempo (Pesquisa)", time_text, w, h)
+    
+    # Format Usuário nicely
+    user = plan.get("user", {})
+    user_text = f"Principal: {user.get('principal','')}\nOutros: {user.get('others','') or '(nenhum)'}\nProfundidade: {user.get('depth','')}\nSigilo: {user.get('secrecy','')}"
+    y = _kv_block(c, x, y, "Usuário", user_text, w, h)
+    
     y = _kv_block(c, x, y, "Finalidade", plan.get("purpose",""), w, h)
-    y = _kv_block(c, x, y, "Prazo", json.dumps(plan.get("deadline", {}), ensure_ascii=False, indent=2), w, h)
+    
+    # Format Prazo nicely
+    deadline = plan.get("deadline", {})
+    deadline_text = f"Data Limite: {deadline.get('date','')}\nUrgência: {deadline.get('urgency','')}"
+    y = _kv_block(c, x, y, "Prazo", deadline_text, w, h)
 
     def list_to_text(lst):
         return "\n".join([f"• {i}" for i in lst]) if lst else "-"

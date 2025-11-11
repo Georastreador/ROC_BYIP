@@ -26,6 +26,30 @@ def generate_plan_pdf(plan: dict, outfile: str):
     w, h = A4
     x, y = 2*cm, h - 2*cm
 
+    # Parse JSON strings in plan data
+    if isinstance(plan.get("subject"), str):
+        plan["subject"] = json.loads(plan["subject"]) if plan["subject"] else {}
+    if isinstance(plan.get("time_window"), str):
+        plan["time_window"] = json.loads(plan["time_window"]) if plan["time_window"] else {}
+    if isinstance(plan.get("user"), str):
+        plan["user"] = json.loads(plan["user"]) if plan["user"] else {}
+    if isinstance(plan.get("deadline"), str):
+        plan["deadline"] = json.loads(plan["deadline"]) if plan["deadline"] else {}
+    if isinstance(plan.get("aspects_essential"), str):
+        plan["aspects_essential"] = json.loads(plan["aspects_essential"]) if plan["aspects_essential"] else []
+    if isinstance(plan.get("aspects_known"), str):
+        plan["aspects_known"] = json.loads(plan["aspects_known"]) if plan["aspects_known"] else []
+    if isinstance(plan.get("aspects_to_know"), str):
+        plan["aspects_to_know"] = json.loads(plan["aspects_to_know"]) if plan["aspects_to_know"] else []
+    if isinstance(plan.get("pirs"), str):
+        plan["pirs"] = json.loads(plan["pirs"]) if plan["pirs"] else []
+    if isinstance(plan.get("collection"), str):
+        plan["collection"] = json.loads(plan["collection"]) if plan["collection"] else []
+    if isinstance(plan.get("extraordinary"), str):
+        plan["extraordinary"] = json.loads(plan["extraordinary"]) if plan["extraordinary"] else []
+    if isinstance(plan.get("security"), str):
+        plan["security"] = json.loads(plan["security"]) if plan["security"] else []
+
     c.setFillColor(colors.HexColor("#0F172A"))
     c.rect(0, h-60, w, 60, fill=1, stroke=0)
     c.setFillColor(colors.white)
@@ -36,12 +60,12 @@ def generate_plan_pdf(plan: dict, outfile: str):
     c.setFillColor(colors.black)
 
     y = h - 80
-    y = _kv_block(c, x, y, "Título", plan.get("title",""))
-    y = _kv_block(c, x, y, "Assunto", json.dumps(plan.get("subject", {}), ensure_ascii=False, indent=2))
-    y = _kv_block(c, x, y, "Faixa de Tempo", json.dumps(plan.get("time_window", {}), ensure_ascii=False, indent=2))
-    y = _kv_block(c, x, y, "Usuário", json.dumps(plan.get("user", {}), ensure_ascii=False, indent=2))
-    y = _kv_block(c, x, y, "Finalidade", plan.get("purpose",""))
-    y = _kv_block(c, x, y, "Prazo", json.dumps(plan.get("deadline", {}), ensure_ascii=False, indent=2))
+    y = _kv_block(c, x, y, "Título", plan.get("title",""), w, h)
+    y = _kv_block(c, x, y, "Assunto", json.dumps(plan.get("subject", {}), ensure_ascii=False, indent=2), w, h)
+    y = _kv_block(c, x, y, "Faixa de Tempo", json.dumps(plan.get("time_window", {}), ensure_ascii=False, indent=2), w, h)
+    y = _kv_block(c, x, y, "Usuário", json.dumps(plan.get("user", {}), ensure_ascii=False, indent=2), w, h)
+    y = _kv_block(c, x, y, "Finalidade", plan.get("purpose",""), w, h)
+    y = _kv_block(c, x, y, "Prazo", json.dumps(plan.get("deadline", {}), ensure_ascii=False, indent=2), w, h)
 
     def list_to_text(lst):
         return "\n".join([f"• {i}" for i in lst]) if lst else "-"

@@ -2,6 +2,7 @@ import streamlit as st
 import httpx
 from datetime import date, datetime, timedelta
 import pandas as pd
+from PIL import Image
 
 # Use environment variable or default to localhost:8000
 import os
@@ -145,7 +146,11 @@ elif current == "Faixa de Tempo":
 Este procedimento consiste em estabelecer a amplitude do tempo para o estudo considerado. A determinação da faixa de tempo é feita levando-se em conta, sobretudo, as necessidades do usuário do conhecimento em produção.
         """)
     
-    st.image("attached_assets/• PRESENI_1762988842140.png", caption="Faixa de Tempo: Passado, Presente e Futuro", use_column_width=True)
+    try:
+        img = Image.open("attached_assets/faixa_tempo.png")
+        st.image(img, caption="Faixa de Tempo: Passado, Presente e Futuro", use_column_width=True)
+    except Exception as e:
+        st.warning(f"Não foi possível carregar a imagem: {e}")
 
 elif current == "Usuário":
     st.subheader("c) Determinar o Usuário do Conhecimento")
@@ -522,8 +527,16 @@ elif current == "Imagens Metodologia":
     st.info("💡 Use esta seção como referência visual para entender melhor a metodologia aplicada.")
     
     st.markdown("### Sequenciamento da Metodologia")
-    st.image("attached_assets/ASSUNTO_1762990355959.png", caption="Metodologia para a Produção do Conhecimentos", use_column_width=True)
+    try:
+        img1 = Image.open("attached_assets/ASSUNTO_1762990355959.png")
+        st.image(img1, caption="Metodologia para a Produção do Conhecimentos", use_column_width=True)
+    except Exception as e:
+        st.warning(f"Não foi possível carregar a imagem de Sequenciamento: {e}")
     
     st.markdown("---")
     st.markdown("### Ciclo de Inteligência - Orientação, Obtenção, Produção e Difusão")
-    st.image("attached_assets/ciclo_inteligencia.png", caption="Ciclo de Inteligência com Realimentação e Avaliação", use_column_width=True)
+    try:
+        img2 = Image.open("attached_assets/ciclo_inteligencia.png")
+        st.image(img2, caption="Ciclo de Inteligência com Realimentação e Avaliação", use_column_width=True)
+    except Exception as e:
+        st.warning(f"Não foi possível carregar a imagem do Ciclo de Inteligência: {e}")

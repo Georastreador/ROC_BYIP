@@ -55,10 +55,6 @@ localPort = 8000
 externalPort = 8000
 exposeLocalhost = true
 
-[[ports]]
-localPort = 41933
-externalPort = 3000
-
 [deployment]
 deploymentTarget = "autoscale"
 run = ["bash", "-c", "uvicorn backend.app.main:app --host 0.0.0.0 --port 8000 & streamlit run app/streamlit_app.py --server.port 5000 --server.address 0.0.0.0"]

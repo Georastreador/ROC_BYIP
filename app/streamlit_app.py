@@ -526,4 +526,4 @@ elif current == "Imagens Metodologia":
     
     st.markdown("---")
     st.markdown("### Ciclo de Inteligência - Orientação, Obtenção, Produção e Difusão")
-    st.image("attached_assets/REALIMENTAÇÃO_1762990436433.png", caption="Ciclo de Inteligência com Realimentação e Avaliação", use_column_width=True)
+    st.image("attached_assets/ciclo_inteligencia.png", caption="Ciclo de Inteligência com Realimentação e Avaliação", use_column_width=True)

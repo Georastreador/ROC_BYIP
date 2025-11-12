@@ -145,7 +145,7 @@ elif current == "Faixa de Tempo":
 Este procedimento consiste em estabelecer a amplitude do tempo para o estudo considerado. A determinação da faixa de tempo é feita levando-se em conta, sobretudo, as necessidades do usuário do conhecimento em produção.
         """)
     
-    st.image("attached_assets/• PRESENI_1762988842140.png", caption="Faixa de Tempo: Passado, Presente e Futuro", use_column_width=True)
+    st.image("../attached_assets/• PRESENI_1762988842140.png", caption="Faixa de Tempo: Passado, Presente e Futuro", use_column_width=True)
 
 elif current == "Usuário":
     st.subheader("c) Determinar o Usuário do Conhecimento")
@@ -522,4 +522,8 @@ elif current == "Imagens Metodologia":
     st.info("💡 Use esta seção como referência visual para entender melhor a metodologia aplicada.")
     
     st.markdown("### Sequenciamento da Metodologia")
-    st.image("attached_assets/ASSUNTO_1762990355959.png", caption="Metodologia para a Produção do Conhecimentos", use_column_width=True)
+    st.image("../attached_assets/ASSUNTO_1762990355959.png", caption="Metodologia para a Produção do Conhecimentos", use_column_width=True)
+    
+    st.markdown("---")
+    st.markdown("### Ciclo de Inteligência - Orientação, Obtenção, Produção e Difusão")
+    st.image("../attached_assets/REALIMENTAÇÃO_1762990436433.png", caption="Ciclo de Inteligência com Realimentação e Avaliação", use_column_width=True)

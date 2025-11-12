@@ -171,6 +171,8 @@ elif current == "Finalidade":
     st.subheader("d) Determinar a Finalidade do Conhecimento")
     plan["purpose"] = st.text_area("Finalidade", plan["purpose"], height=150)
     
+    st.info("💡 **Dica:** A Finalidade do conhecimento é para orientar o analista na direção do FOCO. Pequenas aberturas de linhas de busca/coleta/interpretação para a produção, podem ocorrer, mas sempre retorne e leia a finalidade para não se perder.")
+    
     with st.expander("📖 Guia: Determinação da Finalidade do Conhecimento", expanded=False):
         st.markdown("""
 **d) determinação da finalidade do conhecimento;**

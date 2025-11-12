@@ -30,7 +30,7 @@ st.title("ROC Planejamento de Inteligência")
 steps = [
     "Assunto", "Faixa de Tempo", "Usuário", "Finalidade", "Prazo",
     "Aspectos Essenciais", "Aspectos Conhecidos", "Aspectos a Conhecer",
-    "PIRs & Coleta", "Medidas Extraordinárias", "Medidas de Segurança", "Preview", "Revisão & Export"
+    "PIRs & Coleta", "Medidas Extraordinárias", "Medidas de Segurança", "Preview", "Revisão & Export", "Imagens Metodologia"
 ]
 
 with st.sidebar:
@@ -381,7 +381,7 @@ elif current == "Preview":
     else:
         st.info("Sem tarefas de coleta para montar o Gantt.")
 
-else:
+elif current == "Revisão & Export":
     st.subheader("📋 Revisão & Export")
     
     # Criar abas para melhor organização
@@ -513,3 +513,11 @@ else:
                                 st.info(f"📄 **{result['filename']}** → SHA-256: `{result['sha256']}`")
                             else:
                                 st.error(f"❌ Erro no upload: {r.text}")
+
+elif current == "Imagens Metodologia":
+    st.subheader("📚 Imagens da Metodologia")
+    st.markdown("Esta seção contém imagens ilustrativas da metodologia de Planejamento de Inteligência.")
+    
+    st.markdown("---")
+    st.markdown("### Imagens disponíveis")
+    st.info("💡 Use esta seção como referência visual para entender melhor a metodologia aplicada.")

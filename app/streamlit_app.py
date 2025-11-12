@@ -519,5 +519,7 @@ elif current == "Imagens Metodologia":
     st.markdown("Esta seção contém imagens ilustrativas da metodologia de Planejamento de Inteligência.")
     
     st.markdown("---")
-    st.markdown("### Imagens disponíveis")
     st.info("💡 Use esta seção como referência visual para entender melhor a metodologia aplicada.")
+    
+    st.markdown("### Sequenciamento da Metodologia")
+    st.image("attached_assets/ASSUNTO_1762990355959.png", caption="Metodologia para a Produção do Conhecimentos", use_column_width=True)

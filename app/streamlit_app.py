@@ -208,6 +208,8 @@ elif current == "Aspectos Essenciais":
     st.subheader("f) Identificação dos Aspectos Essenciais do Assunto")
     save_list("Aspectos Essenciais", "aspects_essential")
     
+    st.info("💡 **Dica:** Aspectos essenciais a CONHECER (coletar/buscar/interpretar/integrar/analisar). Podem ser tópicos Ex: Idt X, Y, D; confirmar Z eventos; identificar as ligações A, B e C...")
+    
     with st.expander("📖 Guia: Identificação dos Aspectos Essenciais", expanded=False):
         st.markdown("""
 **f) identificação dos aspectos essenciais do assunto**

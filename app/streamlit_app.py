@@ -261,6 +261,9 @@ Na prática, o procedimento proposto é o resultado do levantamento dos Aspectos
 
 elif current == "PIRs & Coleta":
     st.subheader("PIRs (Requisitos de Inteligência) vinculados aos Aspectos a Conhecer")
+    
+    st.info("💡 **Dica:** Aqui o analista identifica quais as FONTES de dados serão necessárias. (HUMINT, IMINT, GEOINT, OSINT, CIBERINT, IDTINT, FININT, MASINT, SIGINT, TECHINT, SAUINT, outras) direcionando o plano de coleta pelas fontes. Obs: Dependendo do planejamento LEMBRE-SE: para cada fonte de dados existe um especialista !!! Tenha contatos e crie sua rede de confiança por fontes.")
+    
     if plan["aspects_to_know"]:
         aspect_options = [f"{i} - {txt}" for i, txt in enumerate(plan["aspects_to_know"])]
         aspect_sel = st.selectbox("Vincular ao Aspecto a Conhecer", aspect_options, index=0)

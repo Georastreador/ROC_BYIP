@@ -225,6 +225,8 @@ elif current == "Aspectos Conhecidos":
     st.subheader("g) Identificação dos Aspectos Essenciais Conhecidos")
     save_list("Aspectos Conhecidos", "aspects_known")
     
+    st.info("💡 **Dica:** Dados e informações que o analista já dispõem como CONFIRMADOS.")
+    
     with st.expander("📖 Guia: Identificação dos Aspectos Essenciais Conhecidos", expanded=False):
         st.markdown("""
 **g) identificação dos aspectos essenciais conhecidos;**

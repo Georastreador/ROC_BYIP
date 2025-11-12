@@ -154,6 +154,8 @@ elif current == "Usuário":
     plan["user"]["depth"] = st.selectbox("Nível de Profundidade", ["executivo","gerencial","tecnico"], index=0)
     plan["user"]["secrecy"] = st.selectbox("Nível de Sigilo", ["publico","restrito","confidencial","secreto"], index=0)
     
+    st.info("💡 **Dica:** Usuário do conhecimento é o demandante / decisor que utilizará o conhecimento para decidir.")
+    
     with st.expander("📖 Guia: Determinação do Usuário do Conhecimento", expanded=False):
         st.markdown("""
 **c) determinação do usuário do conhecimento;**

@@ -6,7 +6,14 @@ from PIL import Image
 
 # Use environment variable or default to localhost:8000
 import os
+from pathlib import Path
+
 API_URL = os.getenv("API_URL", "http://localhost:8000")
+
+# Get the directory where this script is located
+SCRIPT_DIR = Path(__file__).parent
+ASSETS_DIR = SCRIPT_DIR / "attached_assets"
+
 st.set_page_config(page_title="OSINT Planning MVP v3", layout="wide")
 
 if "plan" not in st.session_state:
@@ -147,7 +154,7 @@ Este procedimento consiste em estabelecer a amplitude do tempo para o estudo con
         """)
     
     try:
-        img = Image.open("attached_assets/faixa_tempo.png")
+        img = Image.open(ASSETS_DIR / "faixa_tempo.png")
         st.image(img, caption="Faixa de Tempo: Passado, Presente e Futuro", use_column_width=True)
     except Exception as e:
         st.warning(f"Não foi possível carregar a imagem: {e}")
@@ -528,7 +535,7 @@ elif current == "Imagens Metodologia":
     
     st.markdown("### Sequenciamento da Metodologia")
     try:
-        img1 = Image.open("attached_assets/ASSUNTO_1762990355959.png")
+        img1 = Image.open(ASSETS_DIR / "ASSUNTO_1762990355959.png")
         st.image(img1, caption="Metodologia para a Produção do Conhecimentos", use_column_width=True)
     except Exception as e:
         st.warning(f"Não foi possível carregar a imagem de Sequenciamento: {e}")
@@ -536,7 +543,7 @@ elif current == "Imagens Metodologia":
     st.markdown("---")
     st.markdown("### Ciclo de Inteligência - Orientação, Obtenção, Produção e Difusão")
     try:
-        img2 = Image.open("attached_assets/ciclo_inteligencia.png")
+        img2 = Image.open(ASSETS_DIR / "ciclo_inteligencia.png")
         st.image(img2, caption="Ciclo de Inteligência com Realimentação e Avaliação", use_column_width=True)
     except Exception as e:
         st.warning(f"Não foi possível carregar a imagem do Ciclo de Inteligência: {e}")

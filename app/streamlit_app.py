@@ -544,6 +544,6 @@ elif current == "Imagens Metodologia":
     st.markdown("### Ciclo de Inteligência - Orientação, Obtenção, Produção e Difusão")
     try:
         img2 = Image.open(ASSETS_DIR / "ciclo_inteligencia.png")
-        st.image(img2, caption="Ciclo de Inteligência com Realimentação e Avaliação", use_column_width=True)
+        st.image(img2, caption="Ciclo de Inteligência com Realimentação e Avaliação", width=393)
     except Exception as e:
         st.warning(f"Não foi possível carregar a imagem do Ciclo de Inteligência: {e}")

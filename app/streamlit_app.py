@@ -144,6 +144,8 @@ elif current == "Faixa de Tempo":
 
 Este procedimento consiste em estabelecer a amplitude do tempo para o estudo considerado. A determinação da faixa de tempo é feita levando-se em conta, sobretudo, as necessidades do usuário do conhecimento em produção.
         """)
+    
+    st.image("attached_assets/• PRESENI_1762988842140.png", caption="Faixa de Tempo: Passado, Presente e Futuro", use_column_width=True)
 
 elif current == "Usuário":
     st.subheader("c) Determinar o Usuário do Conhecimento")

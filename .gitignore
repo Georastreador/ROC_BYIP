@@ -75,6 +75,8 @@ __pycache__/
 .pythonlibs/
 .upm/
 uv.lock
+.config/
+.local/
 
 # Python UV package manager
 .venv/
@@ -88,3 +90,8 @@ uploads/
 *.db
 plans.db
 test.db
+
+# Backups (manter estrutura mas não os arquivos)
+backend/backups/*.db
+backups/*.db
+!backend/backups/.gitkeep

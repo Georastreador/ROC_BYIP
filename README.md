@@ -311,6 +311,141 @@ make clean         # Remove cache e arquivos temporários
 | `REQUIRE_API_KEY` | Ativar API Key | `false` |
 | `API_KEY` | Token de segurança | `devkey` |
 | `REPORT_LOGO_PATH` | Caminho do logo (PDF/HTML) | ` ` (vazio) |
+| `CORS_ORIGINS` | Origens permitidas (CORS) | `localhost:8501,8502,3000` (dev) |
+| `RATE_LIMIT_ENABLED` | Habilitar rate limiting | `true` |
+| `MAX_FILE_SIZE` | Tamanho máximo de upload (bytes) | `52428800` (50MB) |
+| `DEBUG` | Modo debug (expõe detalhes de erros) | `false` |
+| `BACKUP_DIR` | Diretório de backups | `backend/backups` |
+| `BACKUP_RETENTION_DAYS` | Dias de retenção de backups | `30` |
+| `DATABASE_PATH` | Caminho do banco de dados | `backend/plans.db` |
+
+### Configuração CORS
+
+Por padrão, a API permite requisições de `localhost` nas portas comuns (8501, 8502, 3000).
+
+Para produção, configure origens específicas:
+
+```bash
+export CORS_ORIGINS="https://seu-dominio.com,https://app.seu-dominio.com"
+```
+
+**Formato:** URLs separadas por vírgula, sem espaços.
+
+### Configuração Rate Limiting
+
+A API possui rate limiting configurado para proteger contra abuso:
+
+**Limites por Endpoint:**
+- Health check: 100/minuto
+- Criação de planos: 20/minuto
+- Leitura de planos: 60/minuto
+- Upload de evidências: 5/minuto
+- Export PDF: 10/minuto
+
+**Desabilitar (desenvolvimento):**
+```bash
+export RATE_LIMIT_ENABLED=false
+```
+
+**Habilitar (produção - padrão):**
+```bash
+export RATE_LIMIT_ENABLED=true
+```
+
+### Configuração de Upload
+
+A API possui validações de segurança para uploads de arquivos:
+
+**Limites:**
+- Tamanho máximo: 50MB (configurável via `MAX_FILE_SIZE`)
+- Tipos permitidos: PDF, imagens (PNG, JPG, GIF), texto (TXT, MD, CSV), Office (DOC, DOCX, XLS, XLSX), compactados (ZIP, RAR, 7Z), dados (JSON, XML)
+
+**Configurar tamanho máximo:**
+```bash
+# 100MB (em bytes)
+export MAX_FILE_SIZE=104857600
+
+# 25MB
+export MAX_FILE_SIZE=26214400
+```
+
+**Validações Implementadas:**
+- ✅ Validação de extensão de arquivo
+- ✅ Validação de MIME type
+- ✅ Verificação de tamanho durante upload (streaming)
+- ✅ Sanitização de nomes de arquivo
+- ✅ Proteção contra path traversal
+
+### Tratamento de Erros
+
+A API possui tratamento centralizado de erros com logging estruturado:
+
+**Tipos de Erro Tratados:**
+- Erros de banco de dados (SQLAlchemy)
+- Erros de validação (Pydantic)
+- Erros de JSON inválido
+- Erros de arquivo não encontrado
+- Erros de permissão
+- Timeouts
+- Erros genéricos
+
+**Modo Debug:**
+```bash
+# Habilitar modo debug (expõe detalhes completos de erros)
+export DEBUG=true
+
+# Modo produção (padrão): mensagens genéricas
+export DEBUG=false
+```
+
+**Logging:**
+- Logs estruturados em JSON
+- Inclui: tipo de erro, path, method, IP do cliente
+- Traceback completo em modo debug
+
+### Backup e Recuperação
+
+A API possui sistema completo de backup e recuperação do banco de dados:
+
+**Endpoints de Backup:**
+- `POST /backup/create` - Criar backup manual
+- `GET /backup/list` - Listar todos os backups
+- `POST /backup/restore/{filename}` - Restaurar backup específico
+- `GET /backup/stats` - Estatísticas de backups
+
+**Scripts Manuais:**
+```bash
+# Criar backup
+cd backend
+python scripts/backup_manual.py
+
+# Restaurar backup
+python scripts/restore_backup.py plans_backup_20251117_214042.db
+```
+
+**Backup Agendado (Cron):**
+```bash
+# Adicionar ao crontab para backup diário às 2h
+0 2 * * * /caminho/para/backend/scripts/backup_scheduled.sh
+```
+
+**Configuração:**
+```bash
+# Diretório de backups
+export BACKUP_DIR="/caminho/para/backups"
+
+# Retenção (dias)
+export BACKUP_RETENTION_DAYS=30
+
+# Caminho do banco
+export DATABASE_PATH="/caminho/para/plans.db"
+```
+
+**Características:**
+- ✅ Verificação de integridade automática
+- ✅ Limpeza automática de backups antigos
+- ✅ Backup de segurança antes de restaurar
+- ✅ Logging de todas as operações
 
 ## 📚 Metodologia — Planejamento de Inteligência (a→j)
 
